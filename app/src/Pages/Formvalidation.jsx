@@ -31,9 +31,13 @@ const Formvalidation = () => {
     const [user,setUser]=useState("")
     const [email,setemail]=useState("")
     const [pass,setpass]=useState("")
+    const [mobile,setmobile]=useState()
+
     const [usererror,setUserError]=useState(false)
     const [passerror,setpassError]=useState(false)
     const [emailerror,setEmailError]=useState(false)
+    const [mobileerror,setmobileError]=useState(false)
+
     let emailRegix = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
     const LoginHandle=(e)=>{
             e.preventDefault();
@@ -67,7 +71,27 @@ const Formvalidation = () => {
                 setpassError(false)
             }
 
-            
+            let Mobile=e.target[3].value;
+        if(Mobile.length<=10 )
+        {
+            setmobileError(true)
+        }
+        else if(Mobile.length>=13)
+        {
+            setmobileError(true)
+        }
+        else{
+            setmobileError(false)
+        }
+
+    //     if((user.value===" ") &&( email.value===" ") && (pass.value===" " )&& (mobile.value===" "))
+    //     {
+    //         alert("Not")
+    //     }
+    //    else{
+    //     alert("success")
+    //    }
+          
     }
 
 //    userHandling
@@ -110,6 +134,24 @@ const Formvalidation = () => {
             setEmailError(false)
         }
         setemail(Email)
+    }
+
+    // ////////////////////////////////
+
+    const mobileHandler=(e)=>{
+        let Mobile=e.target.value;
+        if(Mobile.length<=10 )
+        {
+            setmobileError(true)
+        }
+        else if(Mobile.length>=13)
+        {
+            setmobileError(true)
+        }
+        else{
+            setmobileError(false)
+        }
+        setmobile(Mobile)
     }
 
 
@@ -179,9 +221,10 @@ const Formvalidation = () => {
                                         children={<CFAiFillMobile color="gray.300" />}
                                     />
 
-                                    <Input  onChange={""} type="number" placeholder="Mobile Number" />
+                                    <Input value={mobile} onChange={mobileHandler} type="number" placeholder="Mobile Number" />
                                 </InputGroup>
                             </FormControl>
+                            <Box>{mobileerror?<Box color="red">"Mobile Number is not Valid"</Box>:""}</Box>
 
                             <FormControl>
                                 <InputGroup>
@@ -190,7 +233,7 @@ const Formvalidation = () => {
                                         children={<CFBsCalendarDate color="gray.300" />}
                                     />
 
-                                    <Input required   type="date"  onChange={""}/>
+                                    <Input    type="date"  />
                                 </InputGroup>
                             </FormControl>
 
@@ -227,7 +270,7 @@ const Formvalidation = () => {
                                 colorScheme="teal"
                                 width="full"
                             >
-                                Login
+                                Sign In
                             </Button>
                         </Stack>
                     </form>
@@ -236,9 +279,14 @@ const Formvalidation = () => {
             <Box>
                 New to us?{" "}
                 <Link color="teal.500" href="#">
-                    Sign Up
+                    Login
                 </Link>
             </Box>
+            <br />
+            <Box>User Name  : {user}</Box>
+            <Box>Email : {email}</Box>
+            <Box>Password : {pass}</Box>
+            {/* <Box>{}</Box> */}
         </Flex>
     );
 };
